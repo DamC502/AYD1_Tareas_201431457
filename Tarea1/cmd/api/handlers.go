@@ -54,6 +54,28 @@ func (app *application) SubPost(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func (app *application) MulPost(w http.ResponseWriter, r *http.Request) {
+	var req CalculatorReq
+	errReq := json.NewDecoder(r.Body).Decode(&req) //json -> parser -> struct
+	if errReq != nil {
+		app.logger.Println(errReq)
+		errorJSON(w, errReq)
+		return
+	}
+	type CalculatorRes struct {
+		Result int `json:"result"`
+	}
+
+	result := CalculatorRes{Result: req.Number1 * req.Number2}
+
+	err := writeJSON(w, http.StatusOK, result, "")
+
+	if err != nil {
+		errorJSON(w, err)
+	}
+	return
+}
+
 func (app *application) InfoGet(w http.ResponseWriter, r *http.Request) {
 	type InfoRes struct {
 		Name   string `json:"name"`
