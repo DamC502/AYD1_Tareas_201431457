@@ -8,6 +8,7 @@ import (
 func (app *application) routes() http.Handler {
 	router := httprouter.New()
 	router.HandlerFunc(http.MethodPost, "/suma", app.CalculatorPost)
+	router.HandlerFunc(http.MethodPost, "/multiplicacion", app.CalculatorPost)
 	return app.enableCORS(router)
 }
 
