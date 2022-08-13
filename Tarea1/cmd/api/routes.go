@@ -14,5 +14,6 @@ func (app *application) routes() http.Handler {
 func (app *application) routesInfo() http.Handler {
 	router := httprouter.New()
 	router.HandlerFunc(http.MethodGet, "/info", app.InfoGet)
+	router.HandlerFunc(http.MethodPost, "/resta", app.SubPost)
 	return app.enableCORS(router)
 }
